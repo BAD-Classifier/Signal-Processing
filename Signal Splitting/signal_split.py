@@ -7,6 +7,17 @@ import matplotlib.pyplot as plt
 # Change the genus for the bird you want to convert
 genus = 'Andropadus'
 
+#Andropadus Importunus - Sombre Greenbul
+#Anthus Crenatus - African Rock Pipit
+#Camaroptera Brachyura - Green-backed Camaroptera
+#Cercotrichas Leucophrys - White-browed Scrub Robin
+#Chlorophoneus Olivaceus - Olive Bushshrike
+#Cossypha Caffra - Cape Robin-Chat
+#Laniarius Ferrugineus - Southern Boubou
+#Prinia Maculosa - Karoo Prinia
+#Sylvia Subcaerulea - Chestnut-vented Warbler
+#Telophorus Zeylonus - Bokmakierie
+
 def convert_to_image(birdSoundPath, birdName):
     x, fs = librosa.load(birdSoundPath, sr=None, mono=True)
 
@@ -31,7 +42,7 @@ def convert_to_image(birdSoundPath, birdName):
 
     for clip in clips:
         librosa.output.write_wav(path+(birdName[:-4]) + '-'+str(u_id) + '.wav' , clip, fs)
-        mfccs = librosa.feature.mfcc(clip, sr=fs, n_fft=1024, hop_length=512, n_mfcc=13, fmin=0, fmax=8000)
+        mfccs = librosa.feature.mfcc(clip, sr=fs, n_fft=1024, hop_length=512, n_mfcc=13, fmin=20, fmax=12000)
         mfccs = sklearn.preprocessing.scale(mfccs, axis=1)  
         librosa.display.specshow(mfccs, sr=fs*2, cmap='coolwarm')
         picName = birdName[:-4] + '-' + str(u_id) + '.png'
